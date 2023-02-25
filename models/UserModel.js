@@ -3,6 +3,11 @@ const { Schema, model } = mongoose
 
 const UserSchema = new Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+      unique: true
+    },
     name: {
       type: String,
       required: true
@@ -15,14 +20,13 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
-    city: {
+    address: {
       type: String,
       required: true
     },
-    document: {
+    role: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     }
   },
   { timestamps: true }

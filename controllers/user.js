@@ -25,17 +25,17 @@ router.post('/register', async (req, res) => {
     const {
       name,
       phone,
-      city,
+      address,
       email,
-      document
+      userId
     } = req.body
 
     const person = new UserModel({
       name,
       email,
       phone,
-      city,
-      document
+      address,
+      userId
     })
 
     const data = await person.save()
