@@ -1,13 +1,8 @@
-const mongoose = require('mongoose')
-mongoose.set('useFindAndModify', false)
+import mongoose from 'mongoose'
+const { Schema, model } = mongoose
 
-
-const UserModel = new mongoose.Schema(
+const UserSchema = new Schema(
   {
-    _id: {
-      type: mongoose.Types.ObjectId,
-      required: true
-    },
     name: {
       type: String,
       required: true
@@ -26,10 +21,11 @@ const UserModel = new mongoose.Schema(
     },
     document: {
       type: String,
-      required: true
-    },
+      required: true,
+      unique: true
+    }
   },
   { timestamps: true }
 )
 
-module.exports = mongoose.model('user', UserModel, 'user')
+export const UserModel = model('user', UserSchema, 'user')

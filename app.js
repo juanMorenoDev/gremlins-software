@@ -1,42 +1,40 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const http = require('http')
+// import lib
+import * as dotenv from 'dotenv'
+import express from 'express'
+import mongoose from 'mongoose'
+import parser from 'body-parser'
+import { createServer } from 'http'
+import cors from 'cors'
 
+// import controllers
+import { personController } from './controllers/person.js'
+import { userController } from './controllers/user.js'
+
+// config express
+dotenv.config()
 const app = express()
-const cors = require('cors')
-const server = http.createServer(app)
-if (process.env.NODE_ENV !== 'production') require('dotenv/config')
-
-app.use(bodyParser.json())
+app.use(parser.json())
 app.use(cors())
-// import routes
-app.get('/', (req, res) => {
-  // TODO: remove this
-  res.status(200).json({
-    status: 'OK'
-  })
-})
+app.set('port', process.env.PORT || 3001)
 
-const personRoute = require('./routes/person')
-app.use('/person', personRoute)
-
-const userRoute = require('./routes/user')
-app.use('/user', userRoute)
+app.use('/person', personController)
+app.use('/user', userController)
 
 // DB
 mongoose.connect(
   process.env.DB_HOST,
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+    useCreateIndex: true
   },
   (error) => {
     if (error) return console.log('Error connecting DB', error)
     console.log('db connected')
-
   }
 )
+
 // Start server
-app.set('port', process.env.PORT || 3001)
+const server = createServer(app)
 server.listen(app.get('port'), () => console.log('ready on port: ' + app.get('port')))
