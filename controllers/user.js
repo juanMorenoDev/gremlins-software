@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
   try {
     const userFound = await UserModel.findOne({
       email: req.body.username,
-      document: req.body.password
+      userId: req.body.password
     })
 
     if (userFound === null) return res.status(401).json({ message: 'Email or password are wrong' })
@@ -22,26 +22,13 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const {
-      name,
-      phone,
-      address,
-      email,
-      userId
-    } = req.body
-
-    const person = new UserModel({
-      name,
-      email,
-      phone,
-      address,
-      userId
-    })
+    const person = new UserModel(req.body)
 
     const data = await person.save()
 
     return res.json(data)
   } catch (error) {
+    console.log(error)
     if (error.code === 11000) return res.status(500).json({ message: 'person already registered' })
 
     return res.status(400).json({ message: 'error registering data', error })

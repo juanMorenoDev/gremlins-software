@@ -1,6 +1,15 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
+export const roles = {
+  TRANSPORTADOR: 'TRANSPORTADOR',
+  EMPACADOR: 'EMPACADOR',
+  ADMINISTRADOR: 'ADMINISTRADOR',
+  RECEPCIONISTA: 'RECEPCIONISTA',
+  CLIENTE: 'CLIENTE',
+  DISTRIBUIDOR: 'DISTRIBUIDOR'
+}
+
 const UserSchema = new Schema(
   {
     userId: {
@@ -26,6 +35,7 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
+      enum: Object.keys(roles),
       required: true
     }
   },
