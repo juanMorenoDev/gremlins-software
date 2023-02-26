@@ -6,25 +6,25 @@ export const types = {
   DISTRIBUIDOR: 'DISTRIBUIDOR'
 }
 
-const UserSchema = new Schema(
+const PartnerSchema = new Schema(
   {
     name: {
       type: String,
       required: true
     },
     lastName: {
-        type: String,
-        required: true
-      },
-      documentType: {
-        type: String,
-        required: true
-      },
-      partnerId: {
-        type: Number,
-        required: true,
-        unique: true
-      },
+      type: String,
+      required: true
+    },
+    documentType: {
+      type: String,
+      required: true
+    },
+    partnerId: {
+      type: Number,
+      required: true,
+      unique: true
+    },
     phone: {
       type: String,
       required: true
@@ -34,9 +34,9 @@ const UserSchema = new Schema(
       required: true
     },
     email: {
-        type: String,
-        required: true
-      },
+      type: String,
+      required: true
+    },
     type: {
       type: String,
       enum: Object.keys(types),
@@ -46,4 +46,4 @@ const UserSchema = new Schema(
   { timestamps: true }
 )
 
-export const UserModel = model('user', UserSchema, 'user')
+export const PartnerModel = model('partner', PartnerSchema, 'partner')
