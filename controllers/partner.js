@@ -1,6 +1,6 @@
 import express from 'express'
 import { PartnerModel } from '../models/PartnerModel.js'
-import verify from '../auth/verification.js'
+// import verify from '../auth/verification.js'
 
 const router = express.Router()
 
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const result = PartnerModel.deleteOne({ _id: req.params.id })
+    const result = await PartnerModel.deleteOne({ _id: req.params.id })
     return res.json(result)
   } catch (error) {
     res.status(500).json({ message: `error deleting id ${req.params.id}`, error })

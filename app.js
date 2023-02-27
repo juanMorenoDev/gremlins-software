@@ -7,7 +7,7 @@ import { createServer } from 'http'
 import cors from 'cors'
 
 // import controllers
-import { personController } from './controllers/person.js'
+// simport { personController } from './controllers/person.js'
 import { userController } from './controllers/user.js'
 import { partnerController } from './controllers/partner.js'
 
@@ -18,7 +18,7 @@ app.use(parser.json())
 app.use(cors())
 app.set('port', process.env.PORT || 3001)
 
-app.use('/person', personController)
+// app.use('/person', personController)
 app.use('/user', userController)
 app.use('/partner', partnerController)
 
