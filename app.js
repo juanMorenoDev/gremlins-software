@@ -10,6 +10,7 @@ import cors from 'cors'
 // simport { personController } from './controllers/person.js'
 import { userController } from './controllers/user.js'
 import { partnerController } from './controllers/partner.js'
+import { productController } from './controllers/product.js'
 
 // config express
 dotenv.config()
@@ -21,6 +22,7 @@ app.set('port', process.env.PORT || 3001)
 // app.use('/person', personController)
 app.use('/user', userController)
 app.use('/partner', partnerController)
+app.use('/product', productController)
 
 // DB
 mongoose.connect(
