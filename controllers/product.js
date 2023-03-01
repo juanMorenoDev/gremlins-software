@@ -4,6 +4,20 @@ import { ProductModel } from '../models/ProductModel.js'
 
 const router = Router()
 
+router.put('/', async (req, res) => {
+  try {
+    const product = await ProductModel.updateOne(
+      {_id: req.body.id},
+       {$set: req.body}
+    )
+    return res.json(product)
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `error looking for id ${req.params.id}`, error })
+  }
+})
+
 router.post('/partnerId', async (req, res) => {
   try {
     const product = await ProductModel.find(req.body)
