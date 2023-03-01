@@ -14,7 +14,7 @@ router.post('/login', async (req, res) => {
     if (userFound === null) return res.status(401).json({ message: 'Email or password are wrong' })
 
     const token = jwt.sign({ _id: userFound._id }, process.env.SECRET)
-    return res.json({ message: 'success', token })
+    return res.json({ message: 'success', token, user: userFound })
   } catch (err) {
     return res.status(400).json({ message: `Error during sign in: ${err}` })
   }
