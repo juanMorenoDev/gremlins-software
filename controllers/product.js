@@ -4,6 +4,27 @@ import { ProductModel } from '../models/ProductModel.js'
 
 const router = Router()
 
+router.post('/partnerId', async (req, res) => {
+  try {
+    const product = await ProductModel.find(req.body)
+    return res.json(product)
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `error looking for id ${req.params.id}`, error })
+  }
+})
+
+router.get('/', async (req, res) => {
+  try {
+    const product = await ProductModel.find()
+
+    return res.json(product)
+  } catch (error) {
+    return res.status(500).json({ message: 'error looking for partners', error })
+  }
+})
+
 router.post('/', async (req, res) => {
   try {
     const product = new ProductModel(req.body)
