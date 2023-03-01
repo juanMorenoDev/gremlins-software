@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
   try {
     const userFound = await UserModel.findOne({
       email: req.body.username,
-      userId: req.body.password
+      password: req.body.password
     })
 
     if (userFound === null) return res.status(401).json({ message: 'Email or password are wrong' })
