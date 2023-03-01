@@ -4,7 +4,7 @@ import { ProductModel } from '../models/ProductModel.js'
 
 const router = Router()
 
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const product = new ProductModel(req.body)
 
