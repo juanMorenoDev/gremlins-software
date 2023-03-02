@@ -1,6 +1,6 @@
 import express from 'express'
+import mongoose from 'mongoose'
 import { OrderModel } from '../models/OrderModel.js'
-// import verify from '../auth/verification.js'
 
 const router = express.Router()
 
@@ -26,6 +26,23 @@ router.post('/', async (req, res) => {
     if (error.code === 11000) return res.status(500).json({ message: 'order already registered' })
 
     return res.status(400).json({ message: 'error registering order', error })
+  }
+})
+
+router.put('/', async (req, res) => {
+  try {
+    const isValidId = mongoose.isValidObjectId(req.body._id ?? '')
+    if (!isValidId) return res.status(500).json({ message: `${req.body._id} is not a valid _id` })
+    const data = await OrderModel.updateOne(
+      { _id: req.body._id },
+      { $set: req.body }
+    )
+    if (data.nModified <= 0) return res.status(500).json({ message: 'object not found or not updated' })
+    return res.status(200).json({ message: 'success' })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `error updating order ${req.body._id}`, error })
   }
 })
 

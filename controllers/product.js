@@ -17,7 +17,7 @@ router.put('/', async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ message: `error looking for id ${req.params.id}`, error })
+      .json({ message: `error updating product ${req.body._id}`, error })
   }
 })
 
