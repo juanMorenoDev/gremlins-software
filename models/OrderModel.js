@@ -8,6 +8,14 @@ const OrderSchema = new Schema(
       required: true,
       ref: 'partner'
     },
+    deliveryDate: {
+      type: String,
+      required: true
+    },
+    status: {
+      type: String,
+      default: 'Pendiente'
+    },
     products: [{
       product: {
         type: Types.ObjectId,
