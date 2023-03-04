@@ -14,6 +14,16 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/query', async (req, res) => {
+  try {
+    const partners = await OrderModel.find(req.query).populate('products.product').populate('clientId')
+
+    return res.json(partners)
+  } catch (error) {
+    return res.status(500).json({ message: 'error looking for partners', error })
+  }
+})
+
 router.post('/', async (req, res) => {
   try {
     const order = new OrderModel(req.body)
