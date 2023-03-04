@@ -7,17 +7,38 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   try {
     const partners = await PartnerModel.find()
-
     return res.json(partners)
   } catch (error) {
     return res.status(500).json({ message: 'error looking for partners', error })
   }
 })
 
-router.get('/query', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const partner = await PartnerModel.findOne(req.query)
-    return res.json(partner)
+    const partnerbyId = await PartnerModel.findById(
+      req.params.id
+    )
+    console.log(partnerbyId)
+    if (partnerbyId === null) return res.status(401).json({ message: 'id no encontrado' })
+    return res.json({ message: 'success', partnerbyId })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({
+        message: `error looking for id ${req.params.id
+          }`,
+        error
+      })
+  }
+})
+
+router.post('/login', async (req, res) => {
+  try {
+    const partner = await PartnerModel.findOne({
+      email: req.body.email
+    })
+    if (partner === null) return res.status(401).json({ message: 'Email or password are wrong' })
+    return res.json({ message: 'success', partner })
   } catch (error) {
     return res
       .status(500)
@@ -42,10 +63,12 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const data = await PartnerModel.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    })
+    const data = await PartnerModel.findByIdAndUpdate(
+      req.params.id,
+      req.body, {
+        new: true,
+        runValidators: true
+      })
 
     return res.json(data)
   } catch (error) {

@@ -21,9 +21,9 @@ router.put('/', async (req, res) => {
   }
 })
 
-router.post('/partnerId', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const product = await ProductModel.find(req.body)
+    const product = await ProductModel.find(req.params.id)
     return res.json(product)
   } catch (error) {
     return res
