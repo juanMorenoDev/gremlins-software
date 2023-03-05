@@ -20,6 +20,11 @@ app.use(cors())
 app.set('port', process.env.PORT || 3001)
 
 // app.use('/person', personController)
+app.get('/', (req, res) => {
+  res.json({
+    message: 'gremlins backend OK'
+  })
+})
 app.use('/user', userController)
 app.use('/partner', partnerController)
 app.use('/product', productController)
